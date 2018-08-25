@@ -2,6 +2,6 @@ module.exports.overview = (req, res)=>{
 
 }
 
-module.exports.analitics = (req, res)=>{
+module.exports.analytics = (req, res)=>{
 
 }
