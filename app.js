@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const bodyParser = require('body-parser');//чтобы парсить json
 const authRoutes = require('./routes/auth');
 const analyticsRoutes = require('./routes/analytics');
@@ -12,7 +13,10 @@ const app = express();
 
 mongoose.connect(keys.mongoURI)
     .then(()=>console.log('mongoDB connected'))
-    .catch((err)=> console.log(err))
+    .catch((err)=> console.log(err));
+
+app.use(passport.initialize());
+require('./middleware/passport')(passport);
 
 app.use(require('morgan')('dev'));//чтобы логировать запросы
 app.use(bodyParser.urlencoded({extended: true}));
