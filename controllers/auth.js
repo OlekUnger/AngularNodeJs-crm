@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs'); //для шифрования паролей
 const jwt = require('jsonwebtoken');//генерация токена
 const User = require('../models/user');
-const keys = require('../config/keys')
+const keys = require('../config/keys');
+const errorHandler = require('../utils/errorHandler');
 
 
 module.exports.login = async(req, res)=>{
@@ -29,8 +30,7 @@ module.exports.login = async(req, res)=>{
             message: 'Пользователь с таким email не найден'
         })
     }
-    // email: req.body.email,
-        // password: req.body.password
+
 
 };
 
@@ -58,7 +58,7 @@ module.exports.register = async (req, res)=>{
             await user.save();
             res.status(201).json(user);
         } catch (e) {
-            // обработать ошибку
+            errorHandler(res, e);
         }
 
     }
