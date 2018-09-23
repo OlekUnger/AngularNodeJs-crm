@@ -1,5 +1,5 @@
 
 module.exports = {
-    mongoURI: 'mongodb://Olek:Rfxthsirf77@ds125372.mlab.com:25372/ounger_db',
+    mongoURI: 'mongodb://Olek:Rfxthsirf77@ds046677.mlab.com:46677/olek_db',
     jwt: 'dev-jwt'
 }
