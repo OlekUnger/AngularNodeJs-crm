@@ -3,7 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -18,7 +18,8 @@ export class TokenInterceptor implements HttpInterceptor {
                 }
             });
         }
-        return next.handle(req).pipe(
+        return next.handle(req)
+            .pipe(
             catchError(
                 (error: HttpErrorResponse): Observable<any> => {
                     return this.handleAuthError(error);
