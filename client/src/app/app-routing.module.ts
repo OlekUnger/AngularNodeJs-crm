@@ -4,6 +4,7 @@ import {LoginPageComponent} from "./login-page/login-page.component";
 import {AuthLayoutComponent} from "./shared/layouts/auth-layout/auth-layout.component";
 import {SiteLayoutComponent} from "./shared/layouts/site-layout/site-layout.component";
 import {RegisterPageComponent} from "./register-page/register-page.component";
+import {AuthGuard} from "./shared/classes/auth.guard";
 
 const routes: Routes = [
     {
@@ -13,7 +14,7 @@ const routes: Routes = [
             {path: 'register', component: RegisterPageComponent},
         ]
     }, // здесь будут роуты к auth-layout
-    {path: '', component: SiteLayoutComponent, children: []}  // здесь будут роуты к site-layout
+    {path: '', component: SiteLayoutComponent, canActivate: [AuthGuard], children: []}  // здесь будут роуты к site-layout
 ]
 
 @NgModule({
