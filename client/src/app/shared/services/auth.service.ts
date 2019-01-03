@@ -15,7 +15,8 @@ export class AuthService {
     constructor(private http: HttpClient) {
     }
 
-    register() {
+    register(user: User): Observable<User> {
+        return this.http.post<User>('/api/auth/register', user)
     }
 
     // мы ожидаем получить некий объект с токеном
