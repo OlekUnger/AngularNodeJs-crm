@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {MaterialService} from "../../classes/material.service";
@@ -8,12 +8,12 @@ import {MaterialService} from "../../classes/material.service";
     templateUrl: './site-layout.component.html',
     styleUrls: ['./site-layout.component.css']
 })
-export class SiteLayoutComponent implements OnInit, AfterViewInit {
+export class SiteLayoutComponent implements  AfterViewInit {
     @ViewChild('floating') floatingRef: ElementRef
 
     links = [
         {url: '/overview', name: 'Обзор'},
-        {url: '/analitics', name: 'Аналитика'},
+        {url: '/analytics', name: 'Аналитика'},
         {url: '/history', name: 'История'},
         {url: '/order', name: 'Добавить заказ'},
         {url: '/categories', name: 'Ассортимент'},

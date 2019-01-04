@@ -1,0 +1,20 @@
+<div class="page-title">
+  <h4>Категории</h4>
+  <button
+      class="waves-effect waves-light btn grey darken-1"
+      routerLink="/categories/new"
+  >Добавить категорию
+  </button>
+</div>
+
+<div class="row" *ngIf="!appLoader">
+  <div class="col s12">
+    <div class="collection">
+      <a
+          class="collection-item"
+          *ngFor="let category of categories"
+      >{{category.name}}</a>
+    </div>
+  </div>
+</div>
+<app-loader *ngIf="appLoader"></app-loader>
