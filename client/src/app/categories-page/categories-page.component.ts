@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {CategoriesService} from "../shared/services/categories.service"
 import {Category} from "../shared/interfaces";
+import {Observable} from "rxjs/index";
 
 @Component({
     selector: 'app-categories-page',
@@ -8,18 +9,14 @@ import {Category} from "../shared/interfaces";
     styleUrls: ['./categories-page.component.css']
 })
 export class CategoriesPageComponent implements OnInit {
-    appLoader = false
-    categories: Category[] = []
+    //category$ -указывает на то, что это стрим, возвращает массив категорий
+    categories$: Observable<Category[]>
 
     constructor(private categoriesService: CategoriesService) {
     }
 
     ngOnInit() {
-        this.appLoader = true
-        this.categoriesService.fetch().subscribe((categories) => {
-            this.appLoader = false
-            this.categories = categories
-        })
+        this.categories$ = this.categoriesService.fetch()
     }
 
 }
