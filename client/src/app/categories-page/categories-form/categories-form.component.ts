@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CategoriesService} from "../../shared/services/categories.service";
 import {switchMap} from "rxjs/operators";
@@ -22,7 +22,9 @@ export class CategoriesFormComponent implements OnInit {
     // режим добавления по умолчанию
     isNew = true
 
-    constructor(private route: ActivatedRoute, private categoriesService: CategoriesService) {
+    constructor(private route: ActivatedRoute,
+                private categoriesService: CategoriesService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -74,7 +76,7 @@ export class CategoriesFormComponent implements OnInit {
         const reader = new FileReader()
 
         reader.onload = () => {
-            this.imagePreview = reader.result
+            this.imagePreview = reader.result.toString()
         }
 
         reader.readAsDataURL(file)
@@ -83,7 +85,7 @@ export class CategoriesFormComponent implements OnInit {
     onSubmit() {
         let obs$
         this.form.disable()
-        if(this.isNew){
+        if (this.isNew) {
             //create
             obs$ = this.categoriesService.create(this.form.value.name, this.image)
         } else {
@@ -91,16 +93,29 @@ export class CategoriesFormComponent implements OnInit {
         }
 
         obs$.subscribe(
-            category =>{
+            category => {
                 this.form.enable()
                 this.category = category
                 MaterialService.toast('Изменения сохранены')
             },
-            error=>{
+            error => {
                 MaterialService.toast(error.error.message)
                 this.form.enable()
             }
         )
+    }
+
+    deleteCategory() {
+        const decision = window.confirm(`Удалить ${this.category.name}?`)
+
+        if (decision) {
+            this.categoriesService.delete(this.category._id)
+                .subscribe(
+                    response => MaterialService.toast(response.message),
+                    error => MaterialService.toast(error.error.message),
+                    () => this.router.navigate(['/categories'])
+                )
+        }
     }
 
 }
