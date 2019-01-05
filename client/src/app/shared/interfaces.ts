@@ -20,4 +20,6 @@ export interface Position {
     category: string
     user?: string
     _id?: string
+    // виртуальное поле только для frontend
+    quantity?: number
 }

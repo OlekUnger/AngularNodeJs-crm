@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChil
 import {PositionsService} from "../../../shared/services/positions.service";
 import {MaterialInstance, MaterialService} from "../../../shared/classes/material.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Position} from "../../../shared/interfaces";
 
 @Component({
     selector: 'app-positions-form',
@@ -98,14 +99,14 @@ export class PositionsFormComponent implements OnInit, AfterViewInit, OnDestroy 
         }
     }
 
-    onDeletePosition(event: Event,position: Position) {
+    onDeletePosition(event: Event, position: Position) {
         event.stopPropagation()
         const decision = window.confirm(`Удалить ${position.name}?`)
 
         if(decision) {
             this.positionsService.delete(position).subscribe(
                 response =>{
-                    const indx = this.positions.findIndex(item=> item._id ===position._id)
+                    const indx = this.positions.findIndex(item=> item._id === position._id)
                     this.positions.splice(indx, 1)
                     MaterialService.toast(response.message)
                 },
