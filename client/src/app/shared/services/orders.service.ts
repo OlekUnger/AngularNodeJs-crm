@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Order} from "../interfaces";
 import {Observable} from "rxjs/index";
 
@@ -13,5 +13,14 @@ export class OrdersService {
 
     create(order: Order): Observable<Order> {
         return this.http.post<Order>('/api/order', order)
+    }
+
+    fetch(params: any = {}): Observable<Order[]> {
+        return this.http.get<Order[]>('/api/order', {
+            // параметры передаваемые в командную строку
+            params: new HttpParams({
+                fromObject: params
+            })
+        })
     }
 }
