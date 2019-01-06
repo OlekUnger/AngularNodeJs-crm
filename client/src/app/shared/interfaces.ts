@@ -1,3 +1,6 @@
+import * as moment from "moment";
+import _date = moment.unitOfTime._date;
+
 export interface User {
     email: string,
     password: string
@@ -22,4 +25,19 @@ export interface Position {
     _id?: string
     // виртуальное поле только для frontend
     quantity?: number
+}
+
+export interface Order {
+    date?: Date
+    order?: number
+    user?: string
+    list: OrderPosition[]
+    _id?: string
+}
+
+export interface OrderPosition {
+    name: string
+    cost: number
+    quantity: number
+    _id?: string
 }
